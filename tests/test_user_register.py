@@ -16,7 +16,7 @@ class TestUserRegister(BaseCase):
         email = 'vinkotov@example.com'
         data = self.prepare_registration_data(email)
 
-        response = MyRequests.post("/api/user/", data=data)
+        response = MyRequests.post("/user/", data=data)
 
         Assertions.assert_code_status(response, 400)
         assert response.content.decode("utf-8") == f"Users with email '{email}' already exists", \
