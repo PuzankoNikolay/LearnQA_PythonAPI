@@ -33,3 +33,16 @@ class BaseCase:
             'lastName': 'learnqa',
             'email': email
         }
+    def prepare_ex15_data(self, username=None):
+        random_part = datetime.now().strftime("%m%d%Y%H%M%S")
+        email = f"learnqa{random_part}@example.com"
+        if username is None:
+            username = 'learnqa'
+        return {
+            'password': '123',
+            'username': username,
+            'firstName': 'learnqa',
+            'lastName': 'learnqa',
+            'email': email
+        }
+    
