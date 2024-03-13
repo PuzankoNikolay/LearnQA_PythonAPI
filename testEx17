@@ -1,0 +1,64 @@
+from lib.my_requests import MyRequests
+from lib.base_case import BaseCase
+from lib.assertions import Assertions
+
+class TestEx17(BaseCase):
+    def test_negative_edit(self):
+        # LOGIN
+        login_data = {
+            'email': 'learnqa03132024111720@example.com',
+            'password': '123'
+        }
+        response1 = MyRequests.post("/user/login", data=login_data)
+
+        auth_sid = self.get_cookie(response1, "auth_sid")
+        token = self.get_header(response1, "x-csrf-token")
+
+        # WRONG AUTHORIZATION EDIT
+        new_name = "Chaed2"
+
+        response2 = MyRequests.put(
+            f"/user/94637",
+            headers={"x-csrf-token": token},
+            cookies={"auth_sid": auth_sid},
+            data={"firstName": new_name}
+        )
+        print(response2.text)
+        Assertions.assert_code_status(response2, 400)
+    def test_proverka_94636(self):
+        # LOGIN
+        login_data = {
+            'email': 'learnqa03132024111720@example.com',
+            'password': '123'
+        }
+        response2 = MyRequests.post("/user/login", data=login_data)
+
+        auth_sid = self.get_cookie(response2, "auth_sid")
+        token = self.get_header(response2, "x-csrf-token")
+        user_id_from_auth_method = self.get_json_value(response2, "user_id")
+
+        response3 = MyRequests.get(
+            f"/user/{user_id_from_auth_method}",
+            headers={"x-csrf-token": token},
+            cookies={"auth_sid": auth_sid}
+        )
+        print(response3.text)
+
+    def test_proverka_94637(self):
+        # LOGIN
+        login_data = {
+            'email': 'learnqa03132024114808@example.com',
+            'password': '123'
+        }
+        response2 = MyRequests.post("/user/login", data=login_data)
+
+        auth_sid = self.get_cookie(response2, "auth_sid")
+        token = self.get_header(response2, "x-csrf-token")
+        user_id_from_auth_method = self.get_json_value(response2, "user_id")
+
+        response3 = MyRequests.get(
+            f"/user/{user_id_from_auth_method}",
+            headers={"x-csrf-token": token},
+            cookies={"auth_sid": auth_sid}
+        )
+        print(response3.text)
