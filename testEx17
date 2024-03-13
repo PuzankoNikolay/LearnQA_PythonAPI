@@ -18,7 +18,7 @@ class TestEx17(BaseCase):
         new_name = "Chaed2"
 
         response2 = MyRequests.put(
-            f"/user/2",
+            f"/user/94637",
             headers={"x-csrf-token": token},
             cookies={"auth_sid": auth_sid},
             data={"firstName": new_name}
